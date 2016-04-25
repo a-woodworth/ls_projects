@@ -17,19 +17,15 @@ puts "-------------------------------"
 puts "What would you like to do? Select a number: Add = 1, Subtract = 2, Multiply = 3, Divide = 4."
 selection = gets.chomp.to_i
 
-if selection == 1
-  result = first_number + second_number
-elsif selection == 2
-  result = first_number - second_number
-elsif selection == 3
-  result = first_number * second_number
-else
-  result = first_number.to_f / second_number.to_f
-end
+result =
+  if selection == 1
+    first_number + second_number
+  elsif selection == 2
+    first_number - second_number
+  elsif selection == 3
+    first_number * second_number
+  else
+    first_number.to_f / second_number.to_f
+  end
 
 puts "Your answer is: #{result}"
-
-
-
-
-

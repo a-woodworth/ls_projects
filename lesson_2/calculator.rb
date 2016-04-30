@@ -9,7 +9,7 @@ MESSAGES = YAML.load_file('calculator_messages.yml')
 # LANGUAGE = 'en'
 LANGUAGE = 'es'
 
-def messages(message, lang='en')
+def messages(message, lang = 'en')
   MESSAGES[lang][message]
 end
 
@@ -30,20 +30,16 @@ def number?(input)
 end
 
 def selection_to_message(sel)
-  word = case sel
-          when '1'
-            prompt(messages('add', LANGUAGE))
-          when '2'
-            prompt(messages('subtract', LANGUAGE))
-          when '3'
-            prompt(messages('multiply', LANGUAGE))
-          when '4'
-            prompt(messages('divide', LANGUAGE))
-          end
-
-  x = "A random line of code"
-
-  word
+  case sel
+  when '1'
+    prompt(messages('add', LANGUAGE))
+  when '2'
+    prompt(messages('subtract', LANGUAGE))
+  when '3'
+    prompt(messages('multiply', LANGUAGE))
+  when '4'
+    prompt(messages('divide', LANGUAGE))
+  end
 end
 
 prompt(messages('welcome', LANGUAGE))

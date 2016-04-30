@@ -1,0 +1,82 @@
+en:
+  welcome: "Welcome to Calculator. Please enter your name: "
+
+  valid_name: "Make sure to use a valid name."
+
+  greeting_part1: "Hi "
+
+  greeting_part2: "! Ready to add, subtract, multiply, or divide?"
+
+  valid_first_number: "Please enter your first number."
+
+  number_error: "Hmmm...that doesn't look like a valid number."
+
+  valid_second_number: "Please enter your second number."
+
+  valid_selection: "Must choose 1, 2, 3 or 4."
+
+  selection_instructions_1: "What would you like to do? Select a number:"
+
+  selection_instructions_2: "Add = 1"
+
+  selection_instructions_3: "Subtract = 2"
+
+  selection_instructions_4: "Multiply = 3"
+
+  selection_instructions_5: "Divide = 4"
+
+  add: "Adding the two numbers..."
+
+  subtract: "Subtracting the two numbers..."
+
+  multiply: "Multiplying the two numbers..."
+
+  divide: "Dividing the two numbers..."
+
+  result: "Your answer is: "
+
+  keep_calculating: "Do you want to perform another calculation? (Y to calculate again)"
+
+  goodbye: "Thank you for using the calculator. Goodbye!"
+
+es:
+  welcome: "Bienvenido a la calculadora. Por favor, escriba su nombre: "
+
+  valid_name: "Asegúrese de utilizar un nombre válido."
+
+  greeting_part1: "Hola "
+
+  greeting_part2: "! Listo para sumar, restar, multiplicar o dividir?"
+
+  valid_first_number: "Por favor, introduzca su primer número."
+
+  number_error: "Hmmm ... que no se ve como un número válido."
+
+  valid_second_number: "Por favor, introduzca su segundo número."
+
+  valid_selection: "Debe elegir 1 , 2 , 3 o 4."
+
+  selection_instructions_1: "Que te gustaría hacer? Seleccione un número de:"
+
+  selection_instructions_2: "Añadir = 1"
+
+  selection_instructions_3: "Restar = 2"
+
+  selection_instructions_4: "Multiplicar = 3"
+
+  selection_instructions_5: "Dividir = 4"
+
+  add: "La adición de los dos números..."
+
+  subtract: "Restando los dos números..."
+
+  multiply: "Multiplicando los dos números..."
+
+  divide: "La división de los dos números..."
+
+  result: "Su respuesta es: "
+
+  keep_calculating: "¿Quieres realizar otro cálculo ? (Y para calcular de nuevo)"
+
+  goodbye: "Gracias por usar la calculadora usted. ¡Adiós!"
+

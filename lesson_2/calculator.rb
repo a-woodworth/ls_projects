@@ -43,7 +43,7 @@ loop do # main loop
     prompt("Please enter your first number.")
     first_number = gets.chomp.to_i
 
-    break unless valid_number?(first_number)
+    break if valid_number?(first_number)
     prompt("Hmmm...that doesn't look like a valid number.")
   end
 
@@ -52,7 +52,7 @@ loop do # main loop
     prompt("Please enter your second number.")
     second_number = gets.chomp.to_i
 
-    break unless valid_number?(second_number)
+    break if valid_number?(second_number)
     prompt("Hmmm...that doesn't look like a valid number.")
   end
 
@@ -71,7 +71,7 @@ loop do # main loop
   loop do
     selection = gets.chomp
 
-    break unless %w(1 2 3 4).include?(selection)
+    break if %w(1 2 3 4).include?(selection)
     prompt("Must choose 1, 2, 3 or 4.")
   end
 

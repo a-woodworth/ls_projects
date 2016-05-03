@@ -1,0 +1,26 @@
+en:
+  welcome: "Welcome to the Loan Calculator."
+
+  usage: "Use this calculator for mortgage, auto, or other fixed loan types."
+
+  enter_loan_amount: "Please enter the total loan amount: "
+
+  value_confirmation: "You entered: "
+
+  error_message: "Invalid data. Please enter a valid amount."
+
+  enter_apr: "Please enter the interest rate per year."
+
+  interest_free: "Congrats on your interest free loan!"
+
+  apr_error: "Please enter a valid interest rate."
+
+  keep_calculating: "Do you want to perform another calculation?"
+
+  payment: "Your monthly payment will be $"
+
+  instructions: "Select --> Y to calculate again. Q to quit."
+
+  instructions_help: "Hmmm...I'm not sure what to do."
+
+  goodbye: "Thank you for using the loan calculator. Goodbye!"

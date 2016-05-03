@@ -19,15 +19,13 @@ end
 
 def validate_loan(loan_amount)
   if loan_amount == '0'
-    prompt(messages('error_message', LANGUAGE))
+    prompt(messages('loan_error', LANGUAGE))
+    prompt(get_loan_amount)
   elsif loan_amount = float?(loan_amount)
     loan_amount.to_f.to_s
   else # For letters/words
-    prompt(messages('error_message', LANGUAGE))
-    loan_amount = gets.chomp
-    loan_amount.delete!('$,') # If added, remove $ and , from value
-    prompt(messages('value_confirmation', LANGUAGE) +
-        sprintf('$%.2f', loan_amount))
+    prompt(messages('loan_error', LANGUAGE))
+    prompt(get_loan_amount)
   end
 end
 
@@ -38,9 +36,27 @@ def validate_apr(apr)
     apr.to_f.to_s
   else # For letters/words
     prompt(messages('apr_error', LANGUAGE))
-    apr = gets.chomp
-    apr = validate_apr(apr)
+    prompt(get_apr)
+  end
+end
+
+def get_loan_amount # Get loan amount
+  prompt(messages('enter_loan_amount', LANGUAGE))
+  loan_amount = gets.chomp
+  loan_amount.delete!('$,') # If added, remove $ and , from value
+  if validate_loan(loan_amount) != nil
+    prompt(messages('value_confirmation', LANGUAGE) +
+      sprintf('$%.2f', loan_amount))
+  end
+end
+
+def get_apr # Get Annual Percentage Rate
+  prompt(messages('enter_apr', LANGUAGE))
+  apr = gets.chomp
+  apr.delete!('%') # If added, remove % from value
+  if validate_apr(apr) != nil
     prompt(messages('value_confirmation', LANGUAGE) + apr + '%.')
+    prompt(messages('monthly_rate', LANGUAGE) + monthly_rate(apr).to_s + '%.')
   end
 end
 
@@ -66,29 +82,13 @@ def calculate_payment
   prompt(messages('welcome', LANGUAGE))
   prompt(messages('usage', LANGUAGE))
 
-  loop do # Get loan amount
-    prompt(messages('enter_loan_amount', LANGUAGE))
-    loan_amount = gets.chomp
-    loan_amount.delete!('$,') # If added, remove $ and , from value
-    if validate_loan(loan_amount) != nil
-      prompt(messages('value_confirmation', LANGUAGE) +
-        sprintf('$%.2f', loan_amount))
-    end
-    loan_amount
-
-    break unless loan_amount.to_f == 0
+  loop do # Ask user for loan amount
+    prompt(get_loan_amount)
+    break unless loan_amount.to_f > 0
   end
 
-  loop do # Get Annual Percentage Rate
-    prompt(messages('enter_apr', LANGUAGE))
-    apr = gets.chomp
-    apr.delete!('%') # If added, remove % from value
-    if validate_apr(apr) != nil
-      prompt(messages('value_confirmation', LANGUAGE) + apr + '%.')
-      prompt(messages('monthly_rate', LANGUAGE) + monthly_rate(apr).to_s + '%.')
-    end
-    apr
-
+  loop do # Ask user for APR
+    prompt(get_apr)
     break if apr.to_f >= 0
   end
 end

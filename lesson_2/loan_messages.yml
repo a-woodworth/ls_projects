@@ -19,6 +19,12 @@ en:
 
   keep_calculating: "Do you want to perform another calculation?"
 
+  years_greeting: "How quickly do you want to pay back your loan?"
+
+  enter_years: "Please enter a number for the loan duration in years."
+
+  years_error: "Please enter a valid number."
+
   payment: "Your monthly payment will be $"
 
   instructions: "Select --> Y to calculate again. Q to quit."

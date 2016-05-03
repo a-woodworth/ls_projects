@@ -40,7 +40,20 @@ def validate_apr(apr)
   end
 end
 
-def get_loan_amount # Get loan amount
+def validate_years(years)
+  if years == '0'
+    prompt(messages('years_error', LANGUAGE))
+    prompt(get_years)
+  elsif years = float?(years)
+    years.to_f.to_s
+  else
+    prompt(messages('years_error', LANGUAGE))
+    prompt(get_years)
+  end
+end
+
+# Get loan amount
+def get_loan_amount
   prompt(messages('enter_loan_amount', LANGUAGE))
   loan_amount = gets.chomp
   loan_amount.delete!('$,') # If added, remove $ and , from value
@@ -50,7 +63,8 @@ def get_loan_amount # Get loan amount
   end
 end
 
-def get_apr # Get Annual Percentage Rate
+# Get Annual Percentage Rate
+def get_apr
   prompt(messages('enter_apr', LANGUAGE))
   apr = gets.chomp
   apr.delete!('%') # If added, remove % from value
@@ -67,8 +81,14 @@ def monthly_rate(apr)
   rate.round(6)
 end
 
-# Loan duration in years
-
+# Get loan duration in years
+def get_years
+  prompt(messages('enter_years', LANGUAGE))
+  years = gets.chomp
+  if validate_years(years) != nil
+    prompt(messages('value_confirmation', LANGUAGE) + years + ' years.')
+  end
+end
 
 # Loan duration in months
 def number_of_monthly_payments
@@ -78,6 +98,7 @@ def calculate_payment
   loan_amount = ''
   apr = ''
   monthly_rate = 0
+  years = ''
 
   prompt(messages('welcome', LANGUAGE))
   prompt(messages('usage', LANGUAGE))
@@ -90,6 +111,12 @@ def calculate_payment
   loop do # Ask user for APR
     prompt(get_apr)
     break if apr.to_f >= 0
+  end
+
+  prompt(messages('years_greeting', LANGUAGE))
+  loop do # Ask user for number of years (loan duration)
+    prompt(get_years)
+    break unless years.to_f > 0
   end
 end
 

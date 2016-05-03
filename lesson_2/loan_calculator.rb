@@ -40,7 +40,7 @@ def validate_apr(apr)
     prompt(messages('apr_error', LANGUAGE))
     apr = gets.chomp
     apr = validate_apr(apr)
-    prompt(messages('value_confirmation', LANGUAGE) + apr.to_s + '%.')
+    prompt(messages('value_confirmation', LANGUAGE) + apr + '%.')
   end
 end
 

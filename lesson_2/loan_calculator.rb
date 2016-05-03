@@ -45,7 +45,10 @@ def validate_apr(apr)
 end
 
 # Monthly interest rate
-def monthly_rate
+def monthly_rate(apr)
+  apr = apr.to_f
+  rate = apr / 1200
+  rate.round(6)
 end
 
 # Loan duration in years
@@ -58,6 +61,7 @@ end
 def calculate_payment
   loan_amount = ''
   apr = ''
+  monthly_rate = 0
 
   prompt(messages('welcome', LANGUAGE))
   prompt(messages('usage', LANGUAGE))
@@ -81,6 +85,7 @@ def calculate_payment
     apr.delete!('%') # If added, remove % from value
     if validate_apr(apr) != nil
       prompt(messages('value_confirmation', LANGUAGE) + apr + '%.')
+      prompt(messages('monthly_rate', LANGUAGE) + monthly_rate(apr).to_s + '%.')
     end
     apr
 

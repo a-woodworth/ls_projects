@@ -7,7 +7,7 @@ en:
 
   value_confirmation: "You entered: "
 
-  laon_error: "Invalid data. Please enter a valid amount."
+  loan_error: "Invalid data. Please enter a valid amount."
 
   enter_apr: "Please enter the interest rate per year."
 

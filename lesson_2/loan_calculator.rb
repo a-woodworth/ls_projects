@@ -20,7 +20,7 @@ end
 def validate_loan(loan_amount)
   if loan_amount.to_f <= 0
     prompt(messages('loan_error', LANGUAGE))
-  elsif loan_amount.to_f && loan_amount.to_f > 0
+  elsif loan_amount.to_f > 0
     float?(loan_amount) && loan_amount.to_f.to_s
   else # For letters/words
     prompt(messages('loan_error', LANGUAGE))
@@ -90,10 +90,14 @@ loop do
   monthly_rate = annual_rate / 12
   months = years.to_i * 12
 
-  calculated_payment =  (monthly_rate * loan_amount.to_f) /
+  if apr.to_f == 0
+    calculated_payment = loan_amount.to_f / months
+    prompt(messages('payment', LANGUAGE) + format('$%.2f', calculated_payment))
+  else
+    calculated_payment =  (monthly_rate * loan_amount.to_f) /
                         (1 - ((1 + monthly_rate)**-months))
-
-  prompt(messages('payment', LANGUAGE) + format('$%.2f', calculated_payment))
+    prompt(messages('payment', LANGUAGE) + format('$%.2f', calculated_payment))
+  end
 
   prompt(messages('instructions', LANGUAGE))
   answer = gets.chomp

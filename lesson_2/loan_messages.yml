@@ -29,6 +29,8 @@ en:
 
   instructions: "Select --> Y to calculate again. Q to quit."
 
+  new_calculation: "OK...starting a new calculation."
+
   instructions_help: "Hmmm...I'm not sure what to do."
 
   goodbye: "Thank you for using the loan calculator. Goodbye!"

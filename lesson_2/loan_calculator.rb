@@ -90,14 +90,13 @@ loop do
   monthly_rate = annual_rate / 12
   months = years.to_i * 12
 
-  if apr.to_f == 0
-    calculated_payment = loan_amount.to_f / months
-    prompt(messages('payment', LANGUAGE) + format('$%.2f', calculated_payment))
-  else
-    calculated_payment =  (monthly_rate * loan_amount.to_f) /
-                        (1 - ((1 + monthly_rate)**-months))
-    prompt(messages('payment', LANGUAGE) + format('$%.2f', calculated_payment))
-  end
+  calculated_payment =
+    if annual_rate == 0
+      loan_amount.to_f / months
+    else
+      (monthly_rate * loan_amount.to_f) / (1 - ((1 + monthly_rate)**-months))
+    end
+  prompt(messages('payment', LANGUAGE) + format('$%.2f', calculated_payment))
 
   prompt(messages('instructions', LANGUAGE))
   answer = gets.chomp

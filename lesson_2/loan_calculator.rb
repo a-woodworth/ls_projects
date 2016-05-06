@@ -14,14 +14,12 @@ def prompt(message)
 end
 
 def float?(number)
-  Float(number) rescue false
+  Float(number) rescue nil
 end
 
 def validate_loan(loan_amount)
-  if loan_amount.to_f <= 0
-    prompt(messages('loan_error', LANGUAGE))
-  elsif loan_amount.to_f > 0
-    float?(loan_amount) && loan_amount.to_f.to_s
+  if float?(loan_amount) && loan_amount.to_f > 0
+    loan_amount.to_f.to_s
   else # For letters/words
     prompt(messages('loan_error', LANGUAGE))
   end
@@ -30,18 +28,16 @@ end
 def validate_apr(apr)
   if apr.eql?('0')
     prompt(messages('interest_free', LANGUAGE))
-  elsif apr.to_f > 0
-    float?(apr) && apr.to_f.to_s
+  elsif float?(apr) && apr.to_f >= 0
+    apr.to_f.to_s
   else # For letters/words
     prompt(messages('apr_error', LANGUAGE))
   end
 end
 
 def validate_years(years)
-  if years.empty? || years.to_i < 0
-    prompt(messages('years_error', LANGUAGE))
-  elsif years.to_i > 0
-    years.to_i.to_s
+  if float?(years) && years.to_f > 0
+    years.to_f.to_s
   else
     prompt(messages('years_error', LANGUAGE))
   end
@@ -82,13 +78,13 @@ loop do
     prompt(messages('enter_years', LANGUAGE))
     years = gets.chomp
     validate_years(years)
-    break if years.to_i > 0
+    break if years.to_f > 0
   end
   prompt(messages('value_confirmation', LANGUAGE) + years + ' years.')
 
   annual_rate = apr.to_f / 100
   monthly_rate = annual_rate / 12
-  months = years.to_i * 12
+  months = years.to_f * 12
 
   calculated_payment =
     if annual_rate == 0

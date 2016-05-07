@@ -13,30 +13,35 @@ def prompt(message)
   puts "=> #{message}"
 end
 
-def float?(number)
-  Float(number) rescue nil
+def to_float(number_string)
+  Float(number_string)
+rescue ArgumentError
+  nil
 end
 
 def validate_loan(loan_amount)
-  if float?(loan_amount) && loan_amount.to_f > 0
+  loan_amount_as_float = to_float(loan_amount)
+  if loan_amount_as_float && loan_amount.to_f > 0
     loan_amount.to_f.to_s
   else # For letters/words
     prompt(messages('loan_error', LANGUAGE))
   end
+  loan_amount_as_float
 end
 
 def validate_apr(apr)
-  if apr.eql?('0') || apr.eql?('0.0')
-    prompt(messages('interest_free', LANGUAGE))
-  elsif float?(apr) && apr.to_f >= 0
-    apr.to_f.to_s
-  else # For letters/words
+  apr_as_float = to_float(apr)
+  if apr_as_float
+    prompt(messages('interest_free', LANGUAGE)) unless apr_as_float > 0.0
+  else
     prompt(messages('apr_error', LANGUAGE))
   end
+  apr_as_float
 end
 
 def validate_years(years)
-  if float?(years) && years.to_f > 0
+  years_to_float = to_float(years)
+  if years_to_float && years.to_f > 0
     years.to_f.to_s
   else
     prompt(messages('years_error', LANGUAGE))

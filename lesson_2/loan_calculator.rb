@@ -26,7 +26,7 @@ def validate_loan(loan_amount)
 end
 
 def validate_apr(apr)
-  if apr.eql?('0')
+  if apr.eql?('0') || apr.eql?('0.0')
     prompt(messages('interest_free', LANGUAGE))
   elsif float?(apr) && apr.to_f >= 0
     apr.to_f.to_s
@@ -69,7 +69,7 @@ loop do
     apr = gets.chomp
     apr.delete!('%') # If added, remove % from value
     validate_apr(apr)
-    break if apr.to_f > 0 || apr.eql?('0')
+    break if apr.to_f > 0 || apr.eql?('0') || apr.eql?('0.0')
   end
   prompt(messages('value_confirmation', LANGUAGE) + apr + '%.')
 

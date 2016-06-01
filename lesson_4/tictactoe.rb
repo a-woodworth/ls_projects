@@ -49,7 +49,8 @@ end
 def player_places_piece!(brd)
   square = ''
   loop do
-    prompt("Choose a position to place a piece: #{joinor(empty_squares(brd), ', ')}")
+    prompt("Choose a position to place a piece:
+      #{joinor(empty_squares(brd), ', ')}")
     square = gets.chomp.to_i
     break if empty_squares(brd).include?(square)
     prompt("Sorry, that's not a valid choice.")
@@ -86,7 +87,7 @@ def joinor(array, punctuation=', ', word='or')
   if array.length == 2
     array.join(' ')
   else
-  array.join(punctuation)
+    array.join(punctuation)
   end
 end
 

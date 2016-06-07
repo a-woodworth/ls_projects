@@ -16,7 +16,7 @@ def clear_screen
   system('clear') || system('cls')
 end
 
-# rubocop:disable AbcSize
+# rubocop:disable AbcSize, disable Metrics/MethodLength
 def display_board(brd, score)
   clear_screen
   puts "Current score is: "
@@ -36,7 +36,7 @@ def display_board(brd, score)
   puts "     |     |"
   puts ""
 end
-# rubocop:enable AbcSize
+# rubocop:enable AbcSize, enable Metrics/MethodLength
 
 def initialize_board
   new_board = {}
@@ -94,7 +94,9 @@ end
 
 def display_score(score)
   score_array = []
-  score_array << score.each_pair { |key, value| puts "#{key.capitalize} => #{value}"}
+  score_array << score.each_pair do |key, value|
+    puts "#{key.capitalize} => #{value}"
+  end
 end
 
 def joinor(array, punctuation=', ', word='or')
@@ -111,7 +113,8 @@ loop do
   score = { player: 0, computer: 0 }
   winning_score = 5
   prompt("Welcome to Tic Tac Toe.")
-  prompt("For each round the winner gets a point. First one to #{winning_score} wins!")
+  prompt("For each round the winner gets a point.")
+  prompt("First one to #{winning_score} wins!")
 
   loop do
     board = initialize_board
@@ -134,7 +137,8 @@ loop do
       prompt("It's a tie!")
     end
 
-    break if score[:player] == winning_score || score[:computer] == winning_score
+    break if  score[:player] == winning_score ||
+              score[:computer] == winning_score
   end
 
   prompt("Select --> Y to play again. Q to quit.")

@@ -17,8 +17,10 @@ def clear_screen
 end
 
 # rubocop:disable AbcSize
-def display_board(brd)
+def display_board(brd, score)
   clear_screen
+  puts "Current score is: "
+  display_score(score)
   puts "You're #{PLAYER_MARKER}. Computer is #{COMPUTER_MARKER}."
   puts ""
   puts "     |     |"
@@ -82,6 +84,19 @@ def detect_winner(brd)
   nil
 end
 
+def score_game(winner, score)
+  if winner == 'Player'
+    score[:player] += 1
+  elsif winner == 'Computer'
+    score[:computer] += 1
+  end
+end
+
+def display_score(score)
+  score_array = []
+  score_array << score.each_pair { |key, value| puts "#{key.capitalize} => #{value}"}
+end
+
 def joinor(array, punctuation=', ', word='or')
   array[-1] = "#{word} #{array.last}" if array.length > 1
   if array.length == 2
@@ -92,25 +107,34 @@ def joinor(array, punctuation=', ', word='or')
 end
 
 loop do
-  board = initialize_board
+  clear_screen
+  score = { player: 0, computer: 0 }
+  winning_score = 5
+  prompt("Welcome to Tic Tac Toe.")
+  prompt("For each round the winner gets a point. First one to #{winning_score} wins!")
 
   loop do
-    display_board(board)
+    board = initialize_board
 
-    player_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
+    loop do
+      display_board(board, score)
+      player_places_piece!(board)
+      computer_places_piece!(board)
+      break if someone_won?(board) || board_full?(board)
+    end
 
-    computer_places_piece!(board)
-    display_board(board)
-    break if someone_won?(board) || board_full?(board)
-  end
+    display_board(board, score)
+    score_game(detect_winner(board), score)
 
-  display_board(board)
+    if someone_won?(board)
+      prompt("#{detect_winner(board)} won!")
+      prompt("Final score is: ")
+      display_score(score)
+    else
+      prompt("It's a tie!")
+    end
 
-  if someone_won?(board)
-    prompt("#{detect_winner(board)} won!")
-  else
-    prompt("It's a tie!")
+    break if score[:player] == winning_score || score[:computer] == winning_score
   end
 
   prompt("Select --> Y to play again. Q to quit.")

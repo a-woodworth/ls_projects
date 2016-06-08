@@ -19,7 +19,7 @@ end
 # rubocop:disable AbcSize, disable Metrics/MethodLength
 def display_board(brd, score)
   clear_screen
-  puts "Current score is: "
+  puts "Score is: "
   display_score(score)
   puts "You're #{PLAYER_MARKER}. Computer is #{COMPUTER_MARKER}."
   puts ""
@@ -61,7 +61,27 @@ def player_places_piece!(brd)
 end
 
 def computer_places_piece!(brd)
-  square = empty_squares(brd).sample
+  square = nil
+  # offense first
+  WINNING_LINES.each do |line|
+    square = find_at_risk_square(line, brd, COMPUTER_MARKER)
+    break if square
+  end
+  # defense second
+  if !square
+    WINNING_LINES.each do |line|
+      square = find_at_risk_square(line, brd, PLAYER_MARKER)
+      break if square
+    end
+  end
+  # pick middle square
+  if !square && brd[5] == INITIAL_MARKER
+    square = 5
+  end
+  # just pick a square
+  if !square
+    square = empty_squares(brd).sample
+  end
   brd[square] = COMPUTER_MARKER
 end
 
@@ -82,6 +102,12 @@ def detect_winner(brd)
     end
   end
   nil
+end
+
+def find_at_risk_square(line, board, marker)
+  if board.values_at(*line).count(marker) == 2
+    board.select { |k, v| line.include?(k) && v == INITIAL_MARKER }.keys.first
+  end
 end
 
 def score_game(winner, score)
@@ -131,7 +157,7 @@ loop do
 
     if someone_won?(board)
       prompt("#{detect_winner(board)} won!")
-      prompt("Final score is: ")
+      # prompt("Final score is: ")
       display_score(score)
     else
       prompt("It's a tie!")

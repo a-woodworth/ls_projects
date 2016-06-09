@@ -60,37 +60,23 @@ def player_places_piece!(brd)
   brd[square] = PLAYER_MARKER
 end
 
-# def computer_countermeasure(board, marker)
-#   WINNING_LINES.each do |line|
-#     square = find_at_risk_square(line, board, marker)
-#     break if square
-#   end
-# end
+def computer_countermeasure(board, marker)
+  WINNING_LINES.each do |line|
+    square = find_at_risk_square(line, board, marker)
+    return square if square
+  end
+  nil
+end
 
 def computer_places_piece!(brd)
-  square = nil
   # offense first
-  # computer_countermeasure(brd, COMPUTER_MARKER)
-  WINNING_LINES.each do |line|
-    square = find_at_risk_square(line, brd, COMPUTER_MARKER)
-    break if square
-  end
+  square = computer_countermeasure(brd, COMPUTER_MARKER)
   # defense second
-  if !square
-    # computer_countermeasure(brd, PLAYER_MARKER)
-    WINNING_LINES.each do |line|
-      square = find_at_risk_square(line, brd, PLAYER_MARKER)
-      break if square
-    end
-  end
+  square = computer_countermeasure(brd, PLAYER_MARKER) unless square
   # pick middle square
-  if !square && brd[5] == INITIAL_MARKER
-    square = 5
-  end
-  # just pick a square
-  if !square
-    square = empty_squares(brd).sample
-  end
+  square = 5 if !square && brd[5] == INITIAL_MARKER
+  # randomly pick a square
+  square = empty_squares(brd).sample unless square
   brd[square] = COMPUTER_MARKER
 end
 

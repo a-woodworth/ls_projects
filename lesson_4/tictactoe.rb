@@ -62,11 +62,7 @@ def moves_first
     break if who_moves_first == 1 || who_moves_first == 2
     prompt("Sorry, that's not a valid choice.")
   end
-  if who_moves_first == 1
-    'Player'
-  else
-    'Computer'
-  end
+  who_moves_first == 1 ? 'Player' : 'Computer'
 end
 
 def player_places_piece!(brd)
@@ -151,10 +147,14 @@ def score_game(winner, score)
 end
 
 def display_score(score)
-  score_array = []
-  score_array << score.each_pair do |key, value|
+  score.each_pair do |key, value|
     puts "#{key.capitalize} => #{value}"
   end
+end
+
+def game_winner(score, winning_score)
+  score[:player] == winning_score ||
+  score[:computer] == winning_score
 end
 
 def joinor(array, punctuation=', ', word='or')
@@ -198,9 +198,9 @@ loop do
     else
       prompt("It's a tie!")
     end
+    sleep(1.9)
 
-    break if  score[:player] == winning_score ||
-              score[:computer] == winning_score
+    break if game_winner(score, winning_score)
   end
 
   prompt("Select --> Y to play again. Q to quit.")

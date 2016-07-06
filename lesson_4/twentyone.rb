@@ -27,17 +27,17 @@ def total(cards)
 
   sum = 0
   values.each do |value|
-    if value == 'Ace'
-      sum += 11
-    elsif value.to_i == 0 # Jack, Queen, King
-      sum += 10
-    else
-      sum += value.to_i
-    end
+    sum += if value == 'Ace'
+             11
+           elsif value.to_i == 0 # Jack, Queen, King
+             10
+           else
+             value.to_i
+           end
   end
 
   # Correct for multiple Aces
-  values.select { |value| value == 'Ace' }.count.times do
+  values.count { |value| value == 'Ace' }.times do
     sum -= 10 if sum > 21
   end
   sum
@@ -190,7 +190,7 @@ loop do
       display_compare_cards(dealers_hand, players_hand)
       score_game(compare_cards(dealers_hand, players_hand), score)
       display_score(score)
-      if score[:player] == WINNING_SCORE || score[:dealer] == WINNING_SCORE
+      if score.values.include?(WINNING_SCORE)
         break
       else
         next
@@ -219,12 +219,14 @@ loop do
       prompt("Dealer stays at #{dealer_total}.")
     end
 
+    # rubocop:disable LineLength
     prompt('')
     prompt("----------------------------------------------------")
     prompt("Dealer has #{display_cards(dealers_hand)}, for a total of: #{dealer_total}.")
     prompt("Player has #{display_cards(players_hand)}, for a total of: #{total(players_hand)}.")
     prompt("----------------------------------------------------")
     prompt('')
+    # rubocop:enable LineLength
 
     display_compare_cards(dealers_hand, players_hand)
     score_game(compare_cards(dealers_hand, players_hand), score)
@@ -232,7 +234,7 @@ loop do
     sleep(5)
     clear_screen
 
-    break if score[:player] == WINNING_SCORE || score[:dealer] == WINNING_SCORE
+    break if score.values.include?(WINNING_SCORE)
   end
 
   if score[:player] == WINNING_SCORE

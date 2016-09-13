@@ -78,4 +78,4 @@ socks = Cat.new
 puts socks.speak
 puts socks.run
 puts socks.jump
-
+puts socks.fetch # Should generate no method error here
